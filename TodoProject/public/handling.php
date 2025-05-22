@@ -1,0 +1,25 @@
+<?php
+require './config.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['createTask'])) {
+        $taskDesc = trim($_POST['taskdesc']);
+        try {
+            $sql = "INSERT INTO tasks (task) VALUES (:task)";
+            $stml = $conn->prepare($sql);
+            $stml->execute([':task' => $taskDesc]);
+            $_SESSION['msg'] = "Task Created Successfully";
+            header("Location: ./");
+            exit;
+        } catch (PDOException $e) {
+            $_SESSION['error'] = "Error : " . $e->getMessage();
+            header("Location: ./");
+            exit;
+        }
+    }
+} else {
+    echo "Access Denied";
+}
