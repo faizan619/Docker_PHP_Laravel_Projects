@@ -18,10 +18,6 @@
           <a class="nav-link" aria-current="page" href="#">Contact</a>
         </li>
       </ul>
-      <!-- <form class="d-flex col-5">
-        <input class="form-control me-2" type="search" placeholder="Search Your Task" aria-label="Search">
-        <button class="btn btn-outline-primary" type="submit">Search</button>
-      </form> -->
       <div class="d-flex col-3 text-light">
         <i>Follow Me on 
           <a href="https://github.com/faizan619" target="_faizanGithub"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50">

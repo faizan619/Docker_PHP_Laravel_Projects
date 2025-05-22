@@ -40,6 +40,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit;
         }
     }
+
+    if (isset($_POST['updateTask'])) {
+        $taskId = $_POST['taskId'];
+        $task = trim($_POST['taskText']);
+        try{
+            $sql = "UPDATE tasks SET task = :task where id = :id";
+            $stml = $conn->prepare($sql);
+            $stml->execute([
+                ':task' => $task,
+                ':id' => $taskId
+            ]);
+            $_SESSION['msg'] = "Task Updated Successfully!";
+            header("Location: ./");
+            exit;
+        }
+        catch(PDOException $e){
+            $_SESSION['error'] = "Error : " . $e->getMessage();
+            header("Location: ./");
+            exit;
+        }
+    }
 } else {
     echo "Access Denied";
 }
