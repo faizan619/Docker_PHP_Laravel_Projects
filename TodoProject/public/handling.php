@@ -5,6 +5,7 @@ ini_set('display_errors', 1);
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // For Creating New Task
     if (isset($_POST['createTask'])) {
         $taskDesc = trim($_POST['taskdesc']);
         try {
@@ -12,6 +13,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stml = $conn->prepare($sql);
             $stml->execute([':task' => $taskDesc]);
             $_SESSION['msg'] = "Task Created Successfully";
+            header("Location: ./");
+            exit;
+        } catch (PDOException $e) {
+            $_SESSION['error'] = "Error : " . $e->getMessage();
+            header("Location: ./");
+            exit;
+        }
+    }
+
+    // For Deleting the Task
+    if (isset($_POST['deleteTask'])) {
+        $taskId = $_POST['taskId'];
+        try {
+            $sql = "DELETE FROM tasks where id = :id";
+            $stml = $conn->prepare($sql);
+            $stml->execute([
+                ':id' => $taskId
+            ]);
+            $_SESSION['msg'] = "Task Is Deleted Successfully!";
             header("Location: ./");
             exit;
         } catch (PDOException $e) {

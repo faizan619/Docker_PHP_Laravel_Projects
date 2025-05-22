@@ -21,6 +21,28 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- DataTables core -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- DataTables Buttons extension -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+
+    <!-- JSZip for Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <!-- pdfmake for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+    <!-- Buttons for HTML5 export & print -->
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+
     <title>Todo App</title>
 </head>
 
@@ -28,6 +50,16 @@ try {
     <?php include "./navbar.php" ?>
     <div class="container">
         <div class="card mt-3 col-7 mx-auto">
+            <?php
+            if (isset($_SESSION['msg'])) {
+                echo '<div class="alert alert-primary text-center">' . htmlspecialchars($_SESSION['msg']) . '</div>';
+                unset($_SESSION['msg']);
+            }
+            if (isset($_SESSION['error'])) {
+                echo '<div class="alert alert-danger text-center">' . htmlspecialchars($_SESSION['error']) . '</div>';
+                unset($_SESSION['error']);
+            }
+            ?>
             <div class="card-header bg-danger text-light">
                 Todo Application
             </div>
@@ -38,27 +70,17 @@ try {
                     <div class="text-center">
                         <input type="submit" name="createTask" class="btn btn-danger mt-2">
                     </div>
-                    <?php
-                    if (isset($_SESSION['msg'])) {
-                        echo '<div class="text-success">' . htmlspecialchars($_SESSION['msg']) . '</div>';
-                        unset($_SESSION['msg']);
-                    }
-                    if (isset($_SESSION['error'])) {
-                        echo '<div class="text-danger">' . htmlspecialchars($_SESSION['error']) . '</div>';
-                        unset($_SESSION['error']);
-                    }
-                    ?>
                 </form>
             </div>
         </div>
         <div class="mt-5">
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped" id="taskTable">
                 <thead class="bg-dark text-light">
                     <tr>
-                        <th>Sr. No</th>
-                        <th>Task</th>
-                        <th>Created At</th>
-                        <th>Action</th>
+                        <th class="col-1">Sr. No</th>
+                        <th class="col-7">Task</th>
+                        <th class="col-2">Created At</th>
+                        <th class="col-2 noExport ">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,9 +91,11 @@ try {
                             echo "<td>" . ($key + 1) . "</td>";
                             echo "<td class='text-capitalize'>" . htmlspecialchars($res['task']) . "</td>";
                             echo "<td>" . date('d-m-Y', strtotime($res['created_at'])) . "</td>";
-                            echo "<td>";
-                            echo "<button class='btn btn-warning'>Edit</button>"."\t";
-                            echo "<button class='btn btn-danger'>Delete</button>";
+                            echo "<td class='d-flex'>";
+                            echo "<button class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#modalForEdit'>Edit</button> &nbsp;" . "\t";
+                            echo "<form action='./handling.php' method='POST'>
+                            <input type='hidden' value=" . $res['id'] . " name='taskId' />
+                            <button type='submit' name='deleteTask' class='btn btn-danger'>Delete</button></form>";
                             echo "</td>";
                             echo "</tr>";
                         }
@@ -94,7 +118,60 @@ try {
             </table>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#taskTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [{
+                        extend: 'copy',
+                        exportOptions: {
+                            columns: ':not(.noExport)'
+                        }
+                    },
+                    {
+                        extend: 'excel',
+                        exportOptions: {
+                            columns: ':not(.noExport)'
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        exportOptions: {
+                            columns: ':not(.noExport)'
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':not(.noExport)'
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+
+
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<!-- Modal For Edit -->
+<div class="modal fade" id="modalForEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </html>
