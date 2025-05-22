@@ -11,6 +11,6 @@ CREATE TABLE IF NOT EXISTS tasks (
     done tinyint DEFAULT 0, 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
+ 
 -- Insert some sample data
 -- INSERT INTO users (username, email) VALUES ('john_doe', 'john@example.com');
