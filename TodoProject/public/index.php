@@ -32,15 +32,12 @@ try {
 
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
-
     <!-- iCheck Bootstrap (for styled checkboxes) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/icheck-bootstrap@3.0.1/icheck-bootstrap.min.css">
-
-
     <title>Todo App</title>
 </head>
 
-<body>
+<body style="min-height: 100vh;" class="d-flex flex-column">
     <?php include "./navbar.php" ?>
     <div class="container">
         <div class="col-md-8 mx-auto">
@@ -61,7 +58,7 @@ try {
                 <div class="card-body">
                     <form action="./handling.php" method="POST">
                         <label for="taskdesc">Task Description <span class="text-danger">*</span></label>
-                        <textarea name="taskdesc" id="taskdesc" class="form-control mt-2" required placeholder="Enter Your Task" rows="3" autofocus></textarea>
+                        <textarea name="taskdesc" id="taskdesc" class="form-control mt-2" required placeholder="Enter Your Task" rows="3"></textarea>
                         <div class="text-center">
                             <input type="submit" name="createTask" class="btn btn-danger mt-2">
                         </div>
@@ -81,6 +78,7 @@ try {
                         if (!empty($result)) {
                             foreach ($result as $key => $res) {
                                 $isDone = $res['done'] ? 'checked' : '';
+                                $isDoneCheck = $res['done'];
                                 $taskText = htmlspecialchars($res['task']);
                                 $createdAt = date('d-m-Y', strtotime($res['created_at']));
                                 $taskId = $res['id'];
@@ -93,7 +91,7 @@ try {
                                     </span>
                                     <!-- checkbox -->
                                     <div class="icheck-primary d-inline ml-2">
-                                        <input type="checkbox" value="" name="todo<?= $taskId ?>" id="todoCheck<?= $taskId ?>" <?= $isDone ?>>
+                                        <input type="checkbox" disabled value="" name="todo<?= $taskId ?>" id="todoCheck<?= $taskId ?>" <?= $isDone ?>>
                                         <label for="todoCheck<?= $taskId ?>"></label>
                                     </div>
                                     <!-- todo text -->
@@ -103,6 +101,20 @@ try {
                                     <!-- General tools such as edit or delete-->
                                     <div class="tools">
                                         <!-- You can trigger modal using data attributes -->
+                                        <?php
+                                        if ($isDoneCheck == 1) {
+                                            echo "<form action='./handling.php' method='POST' class='d-inline'>"
+                                                . "<input type='hidden' name='taskId' value='" . $taskId . "'>"
+                                                . "<button type='submit' name='unCompleteTask' class='btn btn-sm btn-danger' title='Mark the Task Pending'><i class='fas fa-times-circle'></i></button>"
+                                                . "</form>";
+                                        } else {
+                                            // echo "not done";
+                                            echo "<form action='./handling.php' method='POST' class='d-inline'>"
+                                                . "<input type='hidden' name='taskId' value='" . $taskId . "'>"
+                                                . "<button type='submit' name='completeTask' class='btn btn-sm btn-success' title='Mark the Task Complete'><i class='fas fa-check'></i></button>"
+                                                . "</form>";
+                                        }
+                                        ?>
                                         <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modalForEdit" data-task-id="<?= $taskId ?>" data-task-text="<?= $taskText ?>">
                                             <i class="fas fa-edit"></i>
                                         </button>

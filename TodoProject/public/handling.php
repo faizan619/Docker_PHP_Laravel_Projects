@@ -41,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    // For Updating the Task
     if (isset($_POST['updateTask'])) {
         $taskId = $_POST['taskId'];
         $task = trim($_POST['taskText']);
@@ -61,6 +62,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit;
         }
     }
+
+    // For Completing the Task
+    if(isset($_POST['completeTask'])){
+        $taskId = $_POST['taskId'];
+        try{
+            $sql = "UPDATE tasks set done = 1 where id = :id";
+            $stml = $conn->prepare($sql);
+            $stml->execute([
+                ':id' => $taskId
+            ]);
+            header("Location: ./");
+            exit;
+        }
+        catch(PDOException $e){
+            $_SESSION['error'] = "Error : " . $e->getMessage();
+            header("Location: ./");
+            exit;
+        }
+    }
+
+    // For UnCompleting the Task
+    if(isset($_POST['unCompleteTask'])){
+        $taskId = $_POST['taskId'];
+        try{
+            $sql = "UPDATE tasks set done = 0 where id = :id";
+            $stml = $conn->prepare($sql);
+            $stml->execute([
+                ':id' => $taskId
+            ]);
+            header("Location: ./");
+            exit;
+        }
+        catch(PDOException $e){
+            $_SESSION['error'] = "Error : " . $e->getMessage();
+            header("Location: ./");
+            exit;
+        }
+    }
+
 } else {
     echo "Access Denied";
 }
