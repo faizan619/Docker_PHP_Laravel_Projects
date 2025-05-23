@@ -9,3 +9,9 @@
     flex-direction: column;
     min-height: 100vh;
 }
+#contentDiv{
+    background-image: url('./image3.jpg');
+    color: white;
+    background-position: center;
+    background-size: cover;
+}
