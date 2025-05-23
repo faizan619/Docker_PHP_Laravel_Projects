@@ -13,6 +13,7 @@ Perfect for learning PHP, Docker, and sharing fun utility apps.
 | Project Name              | Description                                                  | View Folder               |
 |--------------------------|--------------------------------------------------------------|--------------------------|
 | 🧾 Todo Application     | Manage Your tasks With Interactive Task Allocation Site      | [`TodoProject`](https://github.com/faizan619/Docker_PHP_Laravel_Projects/tree/main/TodoProject)           |
+| 📅 Age Detector Page     | Enter your DOB and it can say you all the information      | [`AgeCalculator`](https://github.com/faizan619/Docker_PHP_Laravel_Projects/tree/main/AgeCalculator)           |
 
 <!-- 
 | 🧾 Bill Splitter          | Split bills among friends & calculate individual tips        | `bill-splitter`          |
@@ -61,6 +62,7 @@ Perfect for learning PHP, Docker, and sharing fun utility apps.
 | Folder Name              | Port Assign                                                  | Link              |
 |--------------------------|--------------------------------------------------------------|--------------------------|
 | 🧾 [`TodoProject`](https://github.com/faizan619/Docker_PHP_Laravel_Projects/tree/main/TodoProject)      |  7000    |  ``` http://localhost:7000 ```         |
+| 🧾 [`AgeCalculator`](https://github.com/faizan619/Docker_PHP_Laravel_Projects/tree/main/AgeCalculator)      |  7300    |  ``` http://localhost:7300 ```         |
 
 
 ## 👨‍💻 Why This?
