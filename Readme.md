@@ -14,13 +14,12 @@ Perfect for learning PHP, Docker, and sharing fun utility apps.
 |--------------------------|--------------------------------------------------------------|--------------------------|
 | 🧾 Todo Application     | Manage Your tasks With Interactive Task Allocation Site      | [`TodoProject`](https://github.com/faizan619/Docker_PHP_Laravel_Projects/tree/main/TodoProject)           |
 
-<!-- {--
+<!-- 
 | 🧾 Bill Splitter          | Split bills among friends & calculate individual tips        | `bill-splitter`          |
 | 🎂 Age & Time Calculator  | Enter DOB & get total days, hours, mins & seconds lived      | `age-calculator`         |
 | 💸 EMI Calculator         | Calculate monthly EMI based on loan amount & interest        | `emi-calculator`         |
-| 🌍 Travel Budget Planner  | Estimate trip cost based on your preferences                 | `travel-budget-planner`  |
 | 🎓 CGPA Converter         | Convert CGPA to percentage using simple logic                | `cgpa-converter`         |
---} -->
+ -->
 
 ---
 
@@ -61,7 +60,7 @@ Perfect for learning PHP, Docker, and sharing fun utility apps.
 
 | Folder Name              | Port Assign                                                  | Link              |
 |--------------------------|--------------------------------------------------------------|--------------------------|
-| 🧾 [`TodoProject`](https://github.com/faizan619/Docker_PHP_Laravel_Projects/tree/main/TodoProject)      |  7000    |  ``` localhost:7000 ```         |
+| 🧾 [`TodoProject`](https://github.com/faizan619/Docker_PHP_Laravel_Projects/tree/main/TodoProject)      |  7000    |  ``` http://localhost:7000 ```         |
 
 
 ## 👨‍💻 Why This?
@@ -77,7 +76,7 @@ These mini projects help in:
 
 ## 📍 About Me
 
-Hi, I'm Faizan — A Laravel Backend Developer with 1 Yr Of Exp. I Am exploring DevOps & Cloud Engineering.  
+Hi, I'm Faizan — A PHP-Laravel Backend Developer with 1 Yr of Exp. I Am exploring Cloud Engineering.  
 Let’s connect on [LinkedIn](https://www.linkedin.com/in/your-profile/) and grow together 🚀
 
 ---
