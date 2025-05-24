@@ -1,6 +1,6 @@
-# 🐳 Dockerized Age Calculator Application
+# 🐳 Dockerized Todo Application
 
-![Age Calculator Screenshot](./public/TodoProject.jpg)
+![Age Calculator Screenshot](https://raw.githubusercontent.com/faizan619/Docker_PHP_Laravel_Projects/refs/heads/main/TodoProject/public/TodoProject.JPG)
 
 
 ## 🧰 How to Run Any Project

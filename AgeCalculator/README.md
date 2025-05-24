@@ -1,6 +1,6 @@
 # 🐳 Dockerized Age Calculator Application
 
-![Age Calculator Screenshot](./public/AgeCalculator.jpg)
+![Age Calculator Screenshot](https://raw.githubusercontent.com/faizan619/Docker_PHP_Laravel_Projects/refs/heads/main/AgeCalculator/public/AgeCalculator.JPG)
 
 
 ## 🧰 How to Run Any Project
