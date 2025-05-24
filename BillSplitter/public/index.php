@@ -15,7 +15,17 @@
 <body>
     <div class="mainDiv">
         <?php include './header.php' ?>
-        Hello World
+        <div class="col-md-6 mx-auto mt-4">
+            <div class="card">
+                <div class="card-header bg-dark text-light">Bill Splitter</div>
+                <div class="card-body text-center">
+                    <i>This Update is still in process</i>
+                </div>
+                <div class="card-footer text-center">
+                    Star the Repo if you like this Mini PHP Docker Project.
+                </div>
+            </div>
+        </div>
         <?php include './footer.php' ?>
     </div>
 </body>
